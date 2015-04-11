@@ -1,16 +1,43 @@
-<head>
-  <title>button</title>
-</head>
 
-<body>
-  <h1>Welcome to Meteor!</h1>
+<template name="BaseLayout">
+	<head>
+	  <title>button</title>
+	</head>
 
-  {{> hello}}
+	<body>
+
+	  <header>
+	    <h1>{{title}}</h1> Header
+	  </header>
+
+	  <div class="content">
+	    {{> yield}}
+	  </div>
+
+	  <footer>
+	    {{> yield "footer"}} Footer
+	  </footer>
+
+	</body>
+
+</template>
+
+<template name="Root">
+  <h1>Button</h1>
 
   {{> loginButtons}}
-</body>
 
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+  {{#if currentUser}}
+  	Logged In!
+  {{/if}}
+
+  {{#contentFor "footer"}}
+    Some post specific footer content.
+  {{/contentFor}}
+</template>
+
+
+<template name="User">
+  <h1>User template</h1>
+  <h3>Hello {{profile.name}}</h3>
 </template>
