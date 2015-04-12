@@ -7,10 +7,10 @@
 	<body>
 
 	  <header>
-	    <h1>{{title}}</h1> Header
+	    <h1>Header</h1>
 	  </header>
 
-	  <div class="content">
+	  <div class="container">
 	    {{> yield}}
 	  </div>
 
@@ -35,9 +35,33 @@
   	<br>
   {{/if}}
 
+  {{> Buttons buttons}}
+
   {{#contentFor "footer"}}
     Some post specific footer content.
   {{/contentFor}}
+</template>
+
+<template name="Buttons">
+	<ul class="list-group">
+	{{#each this}}
+		<li class="list-group-item">
+	    {{> Button this}}
+	  </li>
+	{{/each}}
+	</ul>
+</template>
+
+<template name="Button">
+	<p>{{name}} | <button>Click</button></p>
+	{{> Clicks clicks}}
+</template>
+
+<template name="Clicks">
+	<h3>Clicks</h3>
+	<p>
+		{{#each this}}.{{/each}}
+	</p>
 </template>
 
 

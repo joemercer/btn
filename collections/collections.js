@@ -40,7 +40,17 @@ Buttons.attachSchema(new SimpleSchema({
 
 // each click on a button gets stored here
 Clicks = new Meteor.Collection('clicks');
-// - buttonId
-// - userId
-// - timestamp
-// - geostamp
+// Clicks.attachSchema(new SimpleSchema({
+//   buttonId: {
+//     type: String,
+//     label: "The button that was clicked"
+//   },
+//   userId: {
+//     type: String,
+//     label: "The user that clicked the button"
+//   },
+//   clientCreatedTime: {
+//     type: Date,
+//     label: "The time this Click was created on the client"
+//   }
+// }));

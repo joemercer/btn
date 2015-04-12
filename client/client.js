@@ -1,5 +1,8 @@
 
-Meteor.subscribe('allPublicButtons');
+Template.Root.onRendered(function(){
+  this.subscribe('allPublicButtons');
+});
+
 
 AutoForm.hooks({
   insertButtonForm: {
@@ -11,5 +14,29 @@ AutoForm.hooks({
         return doc;
       },
     }
+  }
+});
+
+
+
+Template.Button.onRendered(function(){
+  this.subscribe('allClicksFor', this.data);
+});
+
+Template.Button.helpers({
+  clicks: function() {
+    return Clicks.find({
+      buttonId: this._id
+    });
+  }
+});
+
+Template.Button.events({
+  'click button': function(e){
+    Clicks.insert({
+      buttonId: this._id,
+      userId: Meteor.userId(),
+      clientCreatedTime: new Date()
+    });
   }
 });

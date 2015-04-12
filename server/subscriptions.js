@@ -35,9 +35,14 @@ Buttons.allow({
 
 Clicks.allow({
   insert: function(userId, doc) {
+    var now = new Date();
+    doc.serverCreatedTime = now;
+    doc.serverModifiedTime = now;
     return true;
   },
   remove: function(userId, doc) {
+    modifier.$set = modifier.$set || {};
+    modifier.$set.serverModifiedTime = new Date();
     return true;
   }
 });
