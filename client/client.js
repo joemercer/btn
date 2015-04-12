@@ -1,4 +1,5 @@
 
+
 Template.Root.onRendered(function(){
   this.subscribe('allPublicButtons');
 });
@@ -46,4 +47,14 @@ Template.Clicks.helpers({
   count: function() {
     return this.count();
   }
+});
+
+
+Template.User.onRendered(function(){
+  // if (this.data.user._id === Meteor.userId()) {
+    // Meteor.subscribe('allMyButtons');
+  // }
+  // else {
+  //   Meteor.subscribe('allPublicButtonsFor', this.data.user);
+  // }
 });

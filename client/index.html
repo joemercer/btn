@@ -7,7 +7,12 @@
 	<body>
 
 	  <header>
-	    <h1>Header</h1>
+	  	<a href="/">Home</a>
+	  	{{#if currentUser}}
+	  		<a href="/{{currentUser.profile.handle}}">My Buttons</a>
+	  	{{/if}}
+	  	{{> loginButtons}}
+	  	<a href="/thing">Thing</a>
 	  </header>
 
 	  <div class="container">
@@ -23,17 +28,6 @@
 </template>
 
 <template name="Root">
-  <h1>Button</h1>
-
-  {{> loginButtons}}
-
-  {{#if currentUser}}
-  	{{> quickForm collection="Buttons" id="insertButtonForm" type="insert" fields="name, description, public"}}
-
-  	<br>
-
-  	<br>
-  {{/if}}
 
   {{> Buttons buttons}}
 
@@ -54,7 +48,7 @@
 
 <template name="Button">
 	<p>
-		<button class="btn btn-defaul">{{name}}</button>
+		<button type="button" class="btn btn-default">{{name}}</button>
 		{{> Clicks clicks}}
 	</p>
 </template>
@@ -65,6 +59,11 @@
 
 
 <template name="User">
-  <h1>User template</h1>
-  <h3>Hello {{profile.name}}</h3>
+
+	{{> Buttons buttons}}
+
+	{{#if currentUser}}
+		{{> quickForm collection="Buttons" id="insertButtonForm" type="insert" fields="name, description, public"}}
+	{{/if}}
+
 </template>

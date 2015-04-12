@@ -55,13 +55,20 @@ Meteor.publish('allPublicButtons', function() {
   });
 });
 
-
-
 Meteor.publish('allButtonsFor', function(user) {
   return Buttons.find({
-  	owner: user._id
+    owner: user._id
   });
 });
+
+Meteor.publish('allPublicButtonsFor', function(user) {
+  return Buttons.find({
+  	owner: user._id,
+    'public': true
+  });
+});
+
+
 
 
 Meteor.publish('allClicksFor', function(button) {

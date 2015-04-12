@@ -9,7 +9,6 @@ Router.route('/', function () {
   this.render('Root', {
     data: function() {
       return {
-        thing: 'hello',
         buttons: Buttons.find({
           'public': true
         })
@@ -21,15 +20,31 @@ Router.route('/', function () {
 // This route is for showing you *your* buttons, both public and private
 Router.route('/:handle', function () {
 
-	// var user = Meteor.users.findOne({
-	// 	'profile.handle': this.params.handle
-	// });
+	var user = Meteor.users.findOne({
+    'profile.handle': this.params.handle
+  });
+
+  var buttons;
+  if (user._id === Meteor.userId()) {
+    this.subscribe('allButtonsFor', user);
+    buttons = Buttons.find({
+      owner: user._id
+    });
+  }
+  else {
+    this.subscribe('allPublicButtonsFor', user);
+    buttons = Buttons.find({
+      owner: user._id,
+      'public': true
+    });
+  }
 
   this.render('User', {
   	data: function() {
-  		return Meteor.users.findOne({
-				'profile.handle': this.params.handle
-			});
+  		return {
+        user: user,
+        buttons: buttons
+      };
   	}
   });
 });
