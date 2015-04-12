@@ -53,15 +53,14 @@
 </template>
 
 <template name="Button">
-	<p>{{name}} | <button>Click</button></p>
-	{{> Clicks clicks}}
+	<p>
+		<button class="btn btn-defaul">{{name}}</button>
+		{{> Clicks clicks}}
+	</p>
 </template>
 
 <template name="Clicks">
-	<h3>Clicks</h3>
-	<p>
-		{{#each this}}.{{/each}}
-	</p>
+	<span>{{#each this}}.{{/each}} ({{count}})</span>
 </template>
 
 
