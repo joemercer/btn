@@ -8,3 +8,5 @@ meteor-platform
 accounts-twitter
 accounts-ui
 iron:router
+aldeed:autoform
+aldeed:collection2

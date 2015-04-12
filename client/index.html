@@ -28,7 +28,11 @@
   {{> loginButtons}}
 
   {{#if currentUser}}
-  	Logged In!
+  	{{> quickForm collection="Buttons" id="insertButtonForm" type="insert" fields="name, description, public"}}
+
+  	<br>
+
+  	<br>
   {{/if}}
 
   {{#contentFor "footer"}}
