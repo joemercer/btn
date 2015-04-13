@@ -6,7 +6,7 @@ Buttons.allow({
   	if (!userId) {
   		return false;
   	}
-  	if (!(userId === doc.owner)) {
+  	if (!(userId === doc.userId)) {
   		return false;
   	}
   	var now = new Date();
@@ -24,7 +24,7 @@ Buttons.allow({
   	if (!userId) {
   		return false;
   	}
-  	if (!(userId === doc.owner)) {
+  	if (!(userId === doc.userId)) {
   		return false;
   	}
   	modifier.$set = modifier.$set || {};
@@ -57,13 +57,13 @@ Meteor.publish('allPublicButtons', function() {
 
 Meteor.publish('allButtonsFor', function(user) {
   return Buttons.find({
-    owner: user._id
+    userId: user._id
   });
 });
 
 Meteor.publish('allPublicButtonsFor', function(user) {
   return Buttons.find({
-  	owner: user._id,
+  	userId: user._id,
     'public': true
   });
 });

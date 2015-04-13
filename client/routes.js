@@ -28,13 +28,13 @@ Router.route('/:handle', function () {
   if (user._id === Meteor.userId()) {
     this.subscribe('allButtonsFor', user);
     buttons = Buttons.find({
-      owner: user._id
+      userId: user._id
     });
   }
   else {
     this.subscribe('allPublicButtonsFor', user);
     buttons = Buttons.find({
-      owner: user._id,
+      userId: user._id,
       'public': true
     });
   }
