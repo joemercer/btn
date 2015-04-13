@@ -1,5 +1,17 @@
 
 
+// Users
+
+Meteor.publish('allUsers', function () {
+  return Meteor.users.find({}, {
+    fields: {
+      profile: 1
+    }
+  });
+});
+
+
+
 // Buttons
 
 Meteor.publish('allPublicButtons', function() {
@@ -14,12 +26,18 @@ Meteor.publish('allButtonsFor', function(user) {
   });
 });
 
-Meteor.publish('allPublicButtonsFor', function(user) {
+Meteor.publish('allPublicButtonsFor', function(handle) {
+  // handle is unique among users
+  var user = Meteor.users.findOne({
+    'profile.handle': handle
+  });
+
   return Buttons.find({
   	userId: user._id,
     'public': true
   });
 });
+
 
 
 // Clicks

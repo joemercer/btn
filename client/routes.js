@@ -1,5 +1,6 @@
 Router.configure({
-  layoutTemplate: 'BaseLayout'
+  layoutTemplate: 'BaseLayout',
+  loadingTemplate: 'Loading'
 });
 
 
@@ -8,8 +9,8 @@ Router.configure({
 Router.route('/', {
   name: 'Home',
   template: 'Home',
-  subscriptions: function() {
-    this.subscribe('allPublicButtons');
+  waitOn: function() {
+    this.subscribe('allPublicButtons').wait();
   },
   data: function() {
     return {
@@ -19,7 +20,9 @@ Router.route('/', {
     };
   },
   action: function() {
-    this.render();
+    if (this.ready()) {
+      this.render();
+    }
   }
 });
 
@@ -29,74 +32,46 @@ Router.route('/', {
 Router.route('/:handle', {
   name: 'Profile',
   template: 'Profile',
-  subscriptions: function() {
-    var user = Meteor.users.findOne({
-      'profile.handle': this.params.handle
-    });
-    if (user._id === Meteor.userId()) {
-      this.subscribe('allButtonsFor', user);
+  waitOn: function () {
+    this.subscribe('allUsers').wait();
+
+    if (Meteor.user() && Meteor.user().profile.handle === this.params.handle) {
+      this.subscribe('allButtonsFor', Meteor.user()).wait();
     }
     else {
-      this.subscribe('allPublicButtonsFor', user);
+      this.subscribe('allPublicButtonsFor', this.params.handle).wait();
     }
   },
   data: function() {
-    var user = Meteor.users.findOne({
-      'profile.handle': this.params.handle
-    });
-
-    var buttons;
-    if (user._id === Meteor.userId()) {
-      buttons = Buttons.find({
-        userId: user._id
+    // seems bad, but we need to wait for this.ready()
+    // https://github.com/iron-meteor/iron-router/issues/576
+    if (this.ready()) {
+      var user = Meteor.users.findOne({
+        'profile.handle': this.params.handle
       });
-    }
-    else {
-      buttons = Buttons.find({
-        userId: user._id,
-        'public': true
-      });
-    }
 
-    return {
-      user: user,
-      buttons: buttons
-    };
+      var buttons;
+      if (user._id === Meteor.userId()) {
+        buttons = Buttons.find({
+          userId: user._id
+        });
+      }
+      else {
+        buttons = Buttons.find({
+          userId: user._id,
+          'public': true
+        });
+      }
+
+      return {
+        user: user,
+        buttons: buttons
+      };
+    }
   },
   action: function() {
-    this.render();
+    if (this.ready()) {
+      this.render();
+    }
   }
 });
-
-
-
-//   function () {
-
-// 	var user = Meteor.users.findOne({
-//     'profile.handle': this.params.handle
-//   });
-
-//   var buttons;
-//   if (user._id === Meteor.userId()) {
-//     this.subscribe('allButtonsFor', user);
-//     buttons = Buttons.find({
-//       userId: user._id
-//     });
-//   }
-//   else {
-//     this.subscribe('allPublicButtonsFor', user);
-//     buttons = Buttons.find({
-//       userId: user._id,
-//       'public': true
-//     });
-//   }
-
-//   this.render('Profile', {
-//   	data: function() {
-//   		return {
-//         user: user,
-//         buttons: buttons
-//       };
-//   	}
-//   });
-// });
