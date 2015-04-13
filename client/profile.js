@@ -12,11 +12,3 @@ AutoForm.hooks({
   }
 });
 
-Template.Profile.onRendered(function(){
-  // if (this.data.user._id === Meteor.userId()) {
-    // Meteor.subscribe('allMyButtons');
-  // }
-  // else {
-  //   Meteor.subscribe('allPublicButtonsFor', this.data.user);
-  // }
-});

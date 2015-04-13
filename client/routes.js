@@ -8,7 +8,9 @@ Router.configure({
 Router.route('/', {
   name: 'Home',
   template: 'Home',
-  subscriptions: function() {},
+  subscriptions: function() {
+    this.subscribe('allPublicButtons');
+  },
   data: function() {
     return {
       buttons: Buttons.find({
