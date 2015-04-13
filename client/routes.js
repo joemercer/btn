@@ -6,7 +6,7 @@ Router.configure({
 
 // This route is for showing you a relevency sorted list of buttons, including your private buttons and all public buttons
 Router.route('/', function () {
-  this.render('Root', {
+  this.render('Home', {
     data: function() {
       return {
         buttons: Buttons.find({
@@ -39,7 +39,7 @@ Router.route('/:handle', function () {
     });
   }
 
-  this.render('User', {
+  this.render('Profile', {
   	data: function() {
   		return {
         user: user,
