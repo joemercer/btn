@@ -11,7 +11,9 @@
 	  </header>
 
 	  <div class="container">
-	    {{> yield}}
+	  	{{#momentum plugin='iron-router' options=transition}}
+			  {{> yield}}
+			{{/momentum}}
 	  </div>
 
 	  <footer>
