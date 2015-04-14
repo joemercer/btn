@@ -7,6 +7,11 @@ Template.Button.helpers({
     return Clicks.find({
       buttonId: this._id
     });
+  },
+  count: function() {
+    return Clicks.find({
+      buttonId: this._id
+    }).count();
   }
 });
 

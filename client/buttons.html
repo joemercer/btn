@@ -1,7 +1,7 @@
 <template name="Buttons">
 	<ul class="list-group">
 	{{#each this}}
-		<li class="list-group-item">
+		<li class="list-group-item button-item">
 	    {{> Button this}}
 	  </li>
 	{{/each}}
@@ -9,8 +9,6 @@
 </template>
 
 <template name="Button">
-	<p>
-		<button type="button" class="btn btn-default">{{name}}</button>
-		{{> Clicks clicks}}
-	</p>
+	<button type="button" class="btn btn-default pull-right button-button"></button>
+	<h4>{{name}} ({{count}}) {{> Clicks clicks}}</h4>
 </template>
