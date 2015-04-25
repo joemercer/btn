@@ -15,12 +15,20 @@ Template.Button.helpers({
   }
 });
 
+var click = _.debounce(function(x){
+  Clicks.insert({
+    buttonId: x._id,
+    userId: Meteor.userId(),
+    clientCreatedTime: new Date()
+  });
+}, 1000, true);
+
+
 Template.Button.events({
-  'click button': function(e){
-    Clicks.insert({
-      buttonId: this._id,
-      userId: Meteor.userId(),
-      clientCreatedTime: new Date()
-    });
+  'click .button-button': function(e){
+    click(this);
   }
 });
+
+
+// !!! to delete button will need to add permission on server
