@@ -15,7 +15,8 @@ Router.route('/', {
   data: function() {
     return {
       buttons: Buttons.find({
-        'public': true
+        'public': true,
+        name: { $regex: Session.get('searchValue') }
       })
     };
   },
@@ -53,13 +54,15 @@ Router.route('/:handle', {
       var buttons;
       if (user._id === Meteor.userId()) {
         buttons = Buttons.find({
-          userId: user._id
+          userId: user._id,
+          name: { $regex: Session.get('searchValue') }
         });
       }
       else {
         buttons = Buttons.find({
           userId: user._id,
-          'public': true
+          'public': true,
+          name: { $regex: Session.get('searchValue') }
         });
       }
 

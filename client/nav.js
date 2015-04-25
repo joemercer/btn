@@ -8,6 +8,15 @@ Template.Nav.helpers({
   }
 });
 
+Session.set('searchValue', '');
+
+Template.Nav.events({
+  'keyup .button-search': function(e) {
+    var value = $(e.target).val();
+    Session.set('searchValue', value);
+  }
+});
+
 
 AutoForm.hooks({
   insertButtonForm: {
